@@ -1,0 +1,19 @@
+vim.opt.number = true
+vim.opt.foldenable = true -- enable fold for nvim-ufo
+vim.opt.foldlevel = 99 -- set high foldlevel for nvim-ufo
+vim.opt.foldlevelstart = 99 -- start with all code unfolded
+vim.opt.relativenumber = true -- show relative numberline
+vim.opt.showtabline = 2 -- always display tabline
+vim.opt.mouse = "a" -- enable mouse support
+vim.opt.ignorecase = true -- case insensitive searching
+vim.opt.infercase = true -- infer cases in keyword completion
+vim.opt.foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil -- show foldcolumn in nvim 0.9
+vim.opt.breakindent = true -- wrap indent to match  line start
+vim.opt.undofile = true -- enable persistent undo
+vim.opt.wrap = false -- disable wrapping of lines longer than the width of window
+vim.opt.preserveindent = true -- preserve indent structure as much as possible
+vim.opt.shiftwidth = 2 -- number of space inserted for indentation
+vim.opt.tabstop = 2 -- number of space in a tab
+vim.g.mapleader = " " -- set leader key
+vim.g.maplocalleader = "," -- set default local leader key
+vim.opt.magic = false
