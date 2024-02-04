@@ -142,11 +142,19 @@ maps.n["<leader>pl"] = { "<cmd>AstroChangelog<cr>", desc = "AstroNvim Changelog"
 -- Manage Buffers
 maps.n["<leader>c"] = { function() require("astronvim.utils.buffer").close() end, desc = "Close buffer" }
 maps.n["<leader>C"] = { function() require("astronvim.utils.buffer").close(0, true) end, desc = "Force close buffer" }
-maps.n["]b"] =
-{ function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end, desc = "Next buffer" }
+-- maps.n["]b"] =
+-- { function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end, desc = "Next buffer" }
+-- maps.n["[b"] = {
+--   function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
+--   desc = "Previous buffer",
+-- }
 maps.n["[b"] = {
-  function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
-  desc = "Previous buffer",
+	"<cmd>bp<CR>",
+	desc = "Previous buffer",
+}
+maps.n["]b"] = {
+	"<cmd>bn<CR>",
+	desc = "Next buffer",
 }
 maps.n[">b"] = {
   function() require("astronvim.utils.buffer").move(vim.v.count > 0 and vim.v.count or 1) end,
@@ -322,7 +330,7 @@ end
 -- SymbolsOutline
 if is_available "aerial.nvim" then
   maps.n["<leader>l"] = sections.l
-  maps.n["<leader>lS"] = { function() require("aerial").toggle() end, desc = "Symbols outline" }
+  maps.n["<leader>a"] = { function() require("aerial").toggle() end, desc = "Symbols outline" }
 end
 
 -- Telescope
@@ -620,5 +628,24 @@ maps.v["<leader>sw"] = { function() require("spectre").open_visual() end,
 vim.keymap.set("n", "[c", function()
   require("treesitter-context").go_to_context(vim.v.count1)
 end, { desc = "Go to tree-sitter context", silent = true })
+
+maps.n["gr"] = {
+	function() vim.lsp.buf.references() end,
+	desc = "Show references of current symbol",
+}
+
+maps.n["K"] = {
+	function() vim.lsp.buf.hover() end,
+	desc = "Show hover information",
+}
+
+maps.i["<C-Space>"] = {
+	function() vim.lsp.buf.signature_help() end,
+	desc = "Show signature help",
+}
+maps.i["<C-k>"] = {
+	function() vim.lsp.buf.hover() end,
+	desc = "Show hover information",
+}
 
 utils.set_mappings(maps)

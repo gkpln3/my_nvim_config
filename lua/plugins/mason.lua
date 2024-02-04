@@ -61,7 +61,11 @@ return {
         -- and will be called for each installed server that doesn't have
         -- a dedicated handler.
         function (server_name) -- default handler (optional)
-          require("lspconfig")[server_name].setup {}
+					local server = require("lspconfig")[server_name]
+          server.setup {}
+					local capabilities = vim.lsp.protocol.make_client_capabilities()
+					capabilities.offsetEncoding = { "utf-16" }
+					require("lspconfig").clangd.setup({ capabilities = capabilities })
 				end,
 			}
 		end,
