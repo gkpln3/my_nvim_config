@@ -648,4 +648,14 @@ maps.i["<C-k>"] = {
 	desc = "Show hover information",
 }
 
+-- Make scrolling in the terminal work like in normal mode
+maps.t["<C-e>"] = {
+	"<C-\\><C-n><C-e>", -- scroll down
+	desc = "Scroll terminal down",
+}
+maps.t["<C-y>"] = {
+	"<C-\\><C-n><C-y>", -- scroll up
+	desc = "Scroll terminal up",
+}
+
 utils.set_mappings(maps)

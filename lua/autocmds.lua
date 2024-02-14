@@ -111,31 +111,20 @@ function QuickFixExcludeFilterPrompt()
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "qf",
-	callback = function()
-		vim.api.nvim_buf_set_keymap(0, 'n', 'f', ':lua QuickFixFilterPrompt()<CR>', { noremap = true, silent = true })
-		vim.api.nvim_buf_set_keymap(0, 'n', 'F', ':lua QuickFixExcludeFilterPrompt()<CR>', { noremap = true, silent = true })
-	end
+pattern = "qf",
+callback = function()
+	vim.api.nvim_buf_set_keymap(0, 'n', 'f', ':lua QuickFixFilterPrompt()<CR>', { noremap = true, silent = true })
+	vim.api.nvim_buf_set_keymap(0, 'n', 'F', ':lua QuickFixExcludeFilterPrompt()<CR>', { noremap = true, silent = true })
+end
 })
 
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function()
+    -- Get the current value of iskeyword as a string
+    local current_iskeyword = vim.api.nvim_get_option "iskeyword"
+    -- Append the characters and set the modified value
+    vim.opt_local.iskeyword = current_iskeyword .. ",_,-,.,/"
+  end,
+})
 
--- autocmd("VimEnter", {
---   callback = function()
--- 		local resession = require("resession")
---     -- Only load the session if nvim was started with no args
---     if vim.fn.argc(-1) == 0 then
---       -- Save these to a different directory, so our manual sessions don't get polluted
---       resession.load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = true })
---     end
--- 		-- If neovim was started with argument, use the argument as the session name
--- 		if vim.fn.argc(-1) > 0 then
--- 			resession.load(vim.fn.getcwd(), { dir = "dirsession", session = vim.fn.argv(0), silence_errors = true })
--- 		end
---   end,
--- })
--- autocmd("VimLeavePre", {
---   callback = function()
--- 		local resession = require("resession")
---     resession.save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
---   end,
--- })
